@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyt.dao.RoleDao">
+    <select id="selAllRole" resultType="com.zyt.entity.Role">
+        select * from tc_role
+    </select>
+
+    <select id="selRoleByAid" resultType="com.zyt.entity.Role">
+        select * from tc_role where rid in(select rid from tc_admin_role where aid=#{aid})
+    </select>
+
+    <insert id="insertRole">
+        insert into tc_role(rname) values(#{rname})
+    </insert>
+    
+    <select id="selRoleByRname" resultType="com.zyt.entity.Role">
+        select * from tc_role where rname=#{rname}
+    </select>
+
+    <insert id="insertRoPr">
+        insert into tc_role_priv(rid,pid) values(#{rid},#{pid})
+    </insert>
+    
+    <delete id="delRoleByRid">
+        delete from tc_role where rid=#{rid}
+    </delete>
+
+    <select id="selRoleByRid" resultType="com.zyt.entity.Role">
+        select * from tc_role where rid=#{rid}
+    </select>
+
+    <update id="updateRoleByRid" parameterType="role">
+    update tc_role set rname=#{role.rname} where rid=#{role.rid}
+    </update>
+    
+    <delete id="delRoPrByRid">
+        delete from tc_role_priv where rid=#{rid}
+    </delete>
+</mapper>
